@@ -29,6 +29,7 @@ public class ClientController {
                 model.addAttribute("clients",pageClients.getContent());
                 model.addAttribute("pages",new int[pageClients.getTotalPages()]);
                 model.addAttribute("currentPage",page);
+                model.addAttribute("keyword",keyword);
                 return "client";
     }
 }
