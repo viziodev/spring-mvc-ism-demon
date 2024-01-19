@@ -22,6 +22,7 @@ public class ClientFixture implements CommandLineRunner {
 
                 client.setNomComplet("Ndiaye" + i);
                 client.setTelephone("77867101" + i);
+                client.setActive(false);
             }
             client.setAdresse(new Adresse("Dakar", "Point E", "Villa00" + i));
             clientRepository.save(client);
