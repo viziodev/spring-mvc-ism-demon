@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    Optional<Client> findByTelephone(String telephone);
-    List<Client> findByNomCompletLike(String telephone);
+
     Page<Client> findAllByActiveTrue(Pageable pageable);
+    Page<Client> findByTelephoneContainsAndActiveTrue(String telephone,
+                                         Pageable pageable);
 }
