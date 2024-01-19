@@ -32,5 +32,11 @@ public class ClientController {
                 model.addAttribute("keyword",keyword);
                 return "client";
     }
+
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/api/v1/commande/liste-clients";
+    }
+
 }
 
