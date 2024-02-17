@@ -46,6 +46,10 @@
             <h3>Liste des Clients</h3>
         </div>
         <div class="card-body">
+            <div class="float-end" >
+                <a th:href="@{/admin/form-client}" class="btn btn-outline-info"> Nouveau</a>
+            </div>
+            <br>
             <form class="d-flex my-2" method="get" th:action="@{/liste-clients}">
                 <input class="form-control me-2 w-50" type="search"
                        name="keyword"

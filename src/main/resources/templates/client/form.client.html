@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container" layout:fragment="contentForView">
+    <div class="card mt-2">
+        <div class="card-header">
+            <h5>Enregistrement Client</h5>
+        </div>
+        <div class="card-body">
+            <form class="col-md-8 offset-2"
+                  method="post" th:action="@{/admin/save-client}">
+                <div th:if="${mode}"  th:class="${mode=='error' ? 'alert alert-danger': 'alert alert-success'}"
+                     th:text="${message}"
+                     role="alert">
+                </div>
+                <div class="mb-3">
+                    <label for="nomComplet" class="form-label">NomComplet</label>
+                    <input type="text"
+                           name="nomComplet"
+                           th:value="${client.nomComplet}"
+                           class="form-control" id="nomComplet" aria-describedby="emailHelp">
+                   </div>
+                <div class="mb-3">
+                    <label for="telephone" class="form-label">Telephone</label>
+                    <input type="text"
+                           name="telephone"
+                           th:value="${client.telephone}"
+                           class="form-control" id="telephone" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="ville" class="form-label">Ville</label>
+                    <input
+                            name="ville"
+                            th:value="${client.ville}"
+                            type="text" class="form-control" id="ville" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="quartier"
+
+                           class="form-label">Quartier</label>
+                    <input
+                            name="quartier"
+                            th:value="${client.quartier}"
+                            type="text" class="form-control" id="quartier" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="numVilla"
+                           class="form-label">Numero Villa</label>
+                    <input
+                            name="numVilla"
+                            th:value="${client.numVilla}"
+                            type="text" class="form-control" id="numVilla" aria-describedby="emailHelp">
+                </div>
+                <div>
+                    <button type="submit" class="float-end btn btn-primary">Enregister</button>
+                </div>
+
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
