@@ -66,7 +66,8 @@
                     <td th:text="${cl.nomComplet}"></td>
                     <td th:text="${cl.telephone}"></td>
                     <td th:text="${cl.adresse}"></td>
-                    <td ><a href="#" class="btn btn-outline-success">Mes Commandes</a></td>
+                    <td ><a type="button" class="btn btn-sm btn-outline-success"
+                            th:href="@{/liste-cmde-client(id=${cl.id})}">Mes Commandes</a></td>
                 </tr>
                 </tbody>
             </table>

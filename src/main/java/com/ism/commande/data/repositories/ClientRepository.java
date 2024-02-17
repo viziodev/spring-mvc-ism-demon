@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
     Page<Client> findAllByActiveTrue(Pageable pageable);
+    Client findByTelephoneAndActiveTrue(String telephone);
     Page<Client> findByTelephoneContainsAndActiveTrue(String telephone,
                                          Pageable pageable);
 }

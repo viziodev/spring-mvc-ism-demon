@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @Getter
 public class Categorie extends AbstractEntity{
-
     @Column(nullable = false,unique = true)
     private String libelle;
     @OneToMany(mappedBy = "categorie",fetch = FetchType.LAZY)

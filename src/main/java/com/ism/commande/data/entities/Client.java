@@ -13,14 +13,12 @@ import java.util.List;
 @Setter
 @Getter
 public class Client extends AbstractEntity {
-
     @Column(nullable = false)
     private String nomComplet;
     @Column(nullable = false)
     private String telephone;
     @OneToMany(mappedBy = "client",fetch = FetchType.LAZY)
     private List<Commande> commandes;
-
 
     @Embedded
     private Adresse adresse;

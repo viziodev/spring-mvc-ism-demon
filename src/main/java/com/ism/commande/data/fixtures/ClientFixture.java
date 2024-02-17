@@ -5,15 +5,19 @@ import com.ism.commande.data.entities.Client;
 import com.ism.commande.data.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
+@Order(1)
 @RequiredArgsConstructor
 public class ClientFixture implements CommandLineRunner {
     private final ClientRepository clientRepository;
+
     @Override
     public void run(String... args) throws Exception {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             Client client = new Client();
             if (i % 2 == 0) {
                 client.setNomComplet("Diop " + i);
@@ -26,8 +30,6 @@ public class ClientFixture implements CommandLineRunner {
             }
             client.setAdresse(new Adresse("Dakar", "Point E", "Villa00" + i));
             clientRepository.save(client);
-
-
         }
     }
 }
