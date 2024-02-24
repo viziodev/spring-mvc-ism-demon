@@ -38,7 +38,11 @@
                     <td th:text="${cl.telephone}"></td>
                     <td th:text="${cl.adresse}"></td>
                     <td ><a type="button" class="btn btn-sm btn-outline-success"
-                            th:href="@{/liste-cmde-client(id=${cl.id})}">Mes Commandes</a></td>
+                            th:href="@{/liste-cmde-client(id=${cl.id})}">Mes Commandes</a>
+                        <a  type="button" class="btn btn-sm btn-outline-warning"
+                           th:href="@{/form-add-cmde-client(id=${cl.id})}"
+                        >Nouvelle Commande</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

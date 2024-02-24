@@ -11,7 +11,118 @@
 </head>
 <body>
 <div class="container" layout:fragment="contentForView">
+    <div class="card mt-2">
+        <div class="card-header">
+            <h5>Enregistrer Commande </h5>
+        </div>
+        <div class="card-body">
+            <div class="card col-md-10 offset-1 my-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <input
+                                    readonly
+                                    th:value="${panier.client.nomComplet}"
+                                    type="text" class="form-control"  aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <input
+                                    th:value="${panier.client.telephone}"
+                                    readonly
+                                    type="text" class="form-control"  aria-label="Last name">
+                        </div>
+                        <div class="col">
+                            <input
+                                    th:value="${panier.client.adresse}"
+                                    readonly
+                                    type="text" class="form-control"  aria-label="Last name">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="card col-md-10 offset-1 my-2">
+                <div class="card-body">
+                    <form action=""
+                          th:object="${articlePanier}"
+                          th:action="@{/add-panier}"
+                          method="post">
+                        <div class="row">
+                            <div class="col">
+                                <select
+                                        th:field="*{idArticle}"
+                                        name="article"
+                                        class="form-select" aria-label="Default select example">
+                                    <option th:each="article:${articles}"
+                                            th:value="${article.id}"
+                                            th:text="${article.libelle}"
+                                    ></option>
+
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input
+                                        th:field="*{prix}"
+                                        name="prix"
+                                        placeholder="Prix Achat"
+                                        type="text" class="form-control"  aria-label="First name">
+                            </div>
+                            <div class="col">
+                                <input
+                                        th:field="*{quantite}"
+                                        name="quantite"
+                                        PLACEHOLDER="Quantite"
+
+                                        type="text" class="form-control"  aria-label="Last name">
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-success" type="submit">Ajouter</button>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    <h5 class="my-3">Panier Article</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Article</th>
+                            <th>Prix</th>
+                            <th>Qte</th>
+                            <th>Montant</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="articlePanier:${panier.getArticles()}">
+                            <td th:text="${articlePanier.libelle}"></td>
+                            <td th:text="${articlePanier.prix}"></td>
+                            <td th:text="${articlePanier.quantite}"></td>
+                            <td th:text="${articlePanier.montant}"></td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                    <div class="row ">
+                        <div class="col ">
+                            <button type="button" class="btn btn-info fs-5">
+                                Total <span class="badge  text-white fs-4 font-monospace"
+                                            th:text="${panier.total}"
+                            ></span>
+                            </button>
+                        </div>
+                        <div class="col  ">
+                            <a th:href="@{/add-commande}" class="btn btn-success float-end">
+                                Enregister
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 </body>
 </html>

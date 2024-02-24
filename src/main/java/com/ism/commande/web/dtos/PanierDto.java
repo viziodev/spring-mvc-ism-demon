@@ -1,5 +1,6 @@
 package com.ism.commande.web.dtos;
 
+import com.ism.commande.data.entities.Client;
 import lombok.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.stream.IntStream;
 public class PanierDto {
     private List<ArticlePanierDto> articles;
     private double total;
-    private ClientPanierDto client;
+    private Client client;
 
     public void calculMontant(double montant){
         total+=montant;
