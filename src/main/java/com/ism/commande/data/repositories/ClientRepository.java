@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-    Page<Client> findAllByActiveTrue(Pageable pageable);
+    Page<Client> findAllByActiveTrueOrderByIdDesc(Pageable pageable);
     Client findByTelephoneAndActiveTrue(String telephone);
-    Page<Client> findByTelephoneContainsAndActiveTrue(String telephone,
+    Page<Client> findByTelephoneContainsAndActiveTrueOrderByIdDesc(String telephone,
                                          Pageable pageable);
 }

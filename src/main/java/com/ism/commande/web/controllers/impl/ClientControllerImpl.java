@@ -6,15 +6,24 @@ import com.ism.commande.web.controllers.ClientController;
 import com.ism.commande.web.dtos.ClientDtoForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +34,7 @@ public class ClientControllerImpl  implements ClientController {
                                @RequestParam(name = "page",defaultValue = "0") int page,
                                @RequestParam(name = "size",defaultValue = "5") int size,
                                @RequestParam(name = "keyword",defaultValue = "") String keyword){
-                Page<Client>   pageClients=  clientRepository.findByTelephoneContainsAndActiveTrue(
+                Page<Client>   pageClients=  clientRepository.findByTelephoneContainsAndActiveTrueOrderByIdDesc(
                             keyword,
                             PageRequest.of(page,size)
                     );
@@ -54,16 +63,23 @@ public class ClientControllerImpl  implements ClientController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
+
+            Map<String, String> errorsList = bindingResult.getFieldErrors()
+                    .stream().collect(
+                            Collectors.toMap(FieldError::getField, DefaultMessageSourceResolvable::getDefaultMessage)
+                    );
+
             redirectAttributes.addFlashAttribute("mode","error");
-            redirectAttributes.addFlashAttribute("message","Erreur de Saisie");
+            redirectAttributes.addFlashAttribute("errorsList",errorsList);
+            return "client/form.client";
         }else{
             redirectAttributes.addFlashAttribute("mode","succes");
             redirectAttributes.addFlashAttribute("message","Client Enregistre avec Success");
             Client client=clientDtoForm.toEntity();
             clientRepository.save(client);
-
+             return "redirect:/api/v1/commande/liste-clients";
         }
-        return "redirect:/admin/form-client";
+
     }
 
 }

@@ -12,7 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ClientDtoForm {
-
     protected Long id;
     @NotEmpty(message = "Le Nom est Obligatoire")
     protected String nomComplet;
