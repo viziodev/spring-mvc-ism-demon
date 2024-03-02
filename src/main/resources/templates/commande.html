@@ -27,6 +27,8 @@
           <td th:text="${data.dateComd}"></td>
           <td th:text="${data.montant}"></td>
           <td th:text="${data.etat}"></td>
+           <td ><a th:href="@{/detail-commande(id=${data.id})}" type="button" class="btn btn-xs btn-outline-success"
+            >Details</a></td>
 
         </tr>
         </tbody>

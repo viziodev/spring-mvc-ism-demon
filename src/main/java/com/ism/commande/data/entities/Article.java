@@ -32,4 +32,8 @@ public class Article   extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "categorie_id")
     private Categorie categorie;
+
+    public Article(Long idArticle) {
+        super(idArticle);
+    }
 }

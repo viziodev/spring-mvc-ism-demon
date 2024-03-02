@@ -68,16 +68,15 @@ public class ClientControllerImpl  implements ClientController {
                     .stream().collect(
                             Collectors.toMap(FieldError::getField, DefaultMessageSourceResolvable::getDefaultMessage)
                     );
-
             redirectAttributes.addFlashAttribute("mode","error");
             redirectAttributes.addFlashAttribute("errorsList",errorsList);
-            return "client/form.client";
+            return "redirect:/admin/form-client";
         }else{
             redirectAttributes.addFlashAttribute("mode","succes");
             redirectAttributes.addFlashAttribute("message","Client Enregistre avec Success");
             Client client=clientDtoForm.toEntity();
-            clientRepository.save(client);
-             return "redirect:/api/v1/commande/liste-clients";
+             clientRepository.save(client);
+             return "redirect:/liste-clients";
         }
 
     }

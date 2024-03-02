@@ -4,6 +4,7 @@ package com.ism.commande.web.dtos;
 import com.ism.commande.data.entities.Adresse;
 import com.ism.commande.data.entities.Client;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 @Data
 @Getter
@@ -15,7 +16,8 @@ public class ClientDtoForm {
     protected Long id;
     @NotEmpty(message = "Le Nom est Obligatoire")
     protected String nomComplet;
-    @NotEmpty(message = "Le Telephone est Obligatoire")
+    //@NotEmpty(message = "Le Telephone est Obligatoire")
+    @Pattern(regexp = "[0-9]{9}", message = "Le Telephone doit avoir 9 chiffres")
     private String telephone;
     private String ville;
     private String quartier;

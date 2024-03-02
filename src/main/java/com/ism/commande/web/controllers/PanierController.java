@@ -14,6 +14,6 @@ public interface PanierController {
     @PostMapping("/add-panier")
     public String addArticleToPanier(Model model,
                                      ArticlePanierDto articlePanier,
-                                     @ModelAttribute("panier") PanierDto panier, HttpServletRequest request
+                                     @ModelAttribute("panier") PanierDto panier
     );
 }
