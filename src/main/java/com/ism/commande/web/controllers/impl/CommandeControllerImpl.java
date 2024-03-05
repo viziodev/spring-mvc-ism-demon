@@ -17,11 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,33 +59,29 @@ public class CommandeControllerImpl implements CommandeController {
         return "commande" ;
     }
 
-    @GetMapping("/form-add-cmde-client")
     public String loadFormCommande(Model model,
                                    @RequestParam(name = "id",defaultValue = "") Long idClient,
                                    @ModelAttribute("panier") PanierDto panier
 
     ){
-
         Optional<Client> OpClient= clientRepository.findById(idClient);
         if(!OpClient.isPresent()){
-            return "redirect:/liste-clients";
+            return "redirect:/admin/liste-clients";
         }
         List<Article> articleList=articleRepository.findAll();
         panier.setClient(OpClient.get());
         model.addAttribute("panier",panier);
         model.addAttribute("articles",articleList);
         model.addAttribute("articlePanier",new ArticlePanierDto());
-
         return "form.commande";
     }
-
     public String saveCommande(Model model,
                                @ModelAttribute("panier") PanierDto panier
     ){
         commandeService.saveCommande(panier);
         //Vider le Panier
         model.addAttribute("panier",panier());
-        return "redirect:/liste-cmde-client?id="+panier.getClient().getId();
+        return "redirect:/client/liste-cmde-client?id="+panier.getClient().getId();
     }
 
     @Override

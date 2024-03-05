@@ -19,11 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequiredArgsConstructor
 @SessionAttributes({"panier"})
 public class PanierControllerImpl implements PanierController {
-
     private final ArticleRepository articleRepository;
-
-
-    @PostMapping("/add-panier")
     public String addArticleToPanier(Model model,
                                      @Valid ArticlePanierDto articlePanier,
                                      @ModelAttribute("panier") PanierDto panier){
@@ -32,7 +28,7 @@ public class PanierControllerImpl implements PanierController {
         panier.addArticleToPanier(articlePanier);
         panier.calculMontant(articlePanier.getMontant());
         model.addAttribute("panier",panier);
-        return "redirect:/form-add-cmde-client?id="+panier.getClient().getId();
+        return "redirect:/client/form-add-cmde-client?id="+panier.getClient().getId();
     }
 
 

@@ -6,12 +6,19 @@ import com.ism.commande.security.repository.AppRoleRepository;
 import com.ism.commande.security.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
-public class SecurityServiceImpl implements SecurityService{
+public class SecurityServiceImpl implements SecurityService, UserDetailsService {
 
     private final AppRoleRepository appRoleRepository;
     private final AppUserRepository appUserRepository;
@@ -59,5 +66,18 @@ public class SecurityServiceImpl implements SecurityService{
         if(role==null) throw  new RuntimeException("Cet Role n'existe pas ");
         user.getRoles().remove(role);
         appUserRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser appUser=getUserByUsername(username);
+         return new User(
+                appUser.getUsername(),
+                appUser.getPassword(),
+                appUser.getRoles()
+                        .stream()
+                        .map(role->new SimpleGrantedAuthority(role.getRoleName()))
+                        .toList()
+         );
     }
 }

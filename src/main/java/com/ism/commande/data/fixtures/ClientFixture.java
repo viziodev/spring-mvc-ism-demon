@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(1)
+@Order(3)
 @RequiredArgsConstructor
 public class ClientFixture implements CommandLineRunner {
     private final ClientRepository clientRepository;

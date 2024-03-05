@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -49,19 +50,12 @@ public class ClientControllerImpl  implements ClientController {
                 model.addAttribute("keyword",keyword);
                 return "client/client";
     }
-    @Override
-    public String index(){
-        return "redirect:/api/v1/commande/liste-clients";
-    }
-
-    @GetMapping("admin/form-client")
     public String loadForClient(Model model){
         ClientDtoForm client=ClientDtoForm.builder().build();
         model.addAttribute("client",client);
         return "client/form.client";
     }
 
-    @PostMapping("admin/save-client")
     public String saveClient(
             @Valid ClientDtoForm clientDtoForm,
             BindingResult bindingResult,
@@ -83,7 +77,7 @@ public class ClientControllerImpl  implements ClientController {
             client.setPassword(passwordEncoder.encode("passer"));
             clientRepository.save(client);
             service.addRoleToUser(clientDtoForm.getTelephone(),"Client");
-             return "redirect:/liste-clients";
+             return "redirect:/admin/liste-clients";
         }
 
     }
