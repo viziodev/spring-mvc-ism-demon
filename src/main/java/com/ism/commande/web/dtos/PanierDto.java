@@ -45,7 +45,8 @@ public class PanierDto {
         }
     }
 
-    public   PanierDto toDto(Commande commande) {
+    public static   PanierDto toDto(Commande commande) {
+
         return PanierDto.builder()
                 .total(commande.getMontant())
                 .client(commande.getClient())

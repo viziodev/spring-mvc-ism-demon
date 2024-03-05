@@ -4,6 +4,7 @@ import com.ism.commande.web.dtos.PanierDto;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface CommandeController {
@@ -25,10 +26,8 @@ public interface CommandeController {
                                @ModelAttribute("panier") PanierDto panier
     );
 
-    @GetMapping ("/add-commande")
+    @GetMapping ("/detail-commande")
     public String detailCommande(Model model,
-                                 @RequestParam(name = "id",defaultValue = "") Long idClient,
-                                 @ModelAttribute("panier") PanierDto panier
-
+                                 @RequestParam(name = "id") Long idCommande
     );
 }

@@ -92,11 +92,12 @@ public class CommandeControllerImpl implements CommandeController {
 
     @Override
     public String detailCommande(Model model,
-                                 @RequestParam(name = "id",defaultValue = "") Long idCommande,
-                                 @ModelAttribute("panier") PanierDto panier) {
-        Commande commande=  commandeRepository.findById(idCommande).orElseThrow(()->new IllegalArgumentException("Invalid"));
-        panier.toDto(commande);
-      return "redirect:/form.commande?id="+panier.getClient().getId();
+                                 @RequestParam(name = "id") Long idCommande) {
+          Commande commande=  commandeRepository.findById(idCommande).orElseThrow(()->new IllegalArgumentException("Invalid"));
+          PanierDto panierDto= PanierDto.toDto(commande);
+          panierDto.setState(State.UPDATE);
+          model.addAttribute("panier",panierDto);
+         return "detail.commande";
      }
 
      @ModelAttribute("panier")

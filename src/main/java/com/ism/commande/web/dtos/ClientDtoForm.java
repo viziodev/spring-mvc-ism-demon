@@ -27,7 +27,6 @@ public class ClientDtoForm {
         return new Client(
                 nomComplet,
                 telephone,
-                null,
                 new Adresse(
                         ville,
                         quartier,

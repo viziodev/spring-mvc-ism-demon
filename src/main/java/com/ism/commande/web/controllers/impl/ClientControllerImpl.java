@@ -2,6 +2,7 @@ package com.ism.commande.web.controllers.impl;
 
 import com.ism.commande.data.entities.Client;
 import com.ism.commande.data.repositories.ClientRepository;
+import com.ism.commande.security.services.SecurityService;
 import com.ism.commande.web.controllers.ClientController;
 import com.ism.commande.web.dtos.ClientDtoForm;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +31,8 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class ClientControllerImpl  implements ClientController {
     private final ClientRepository clientRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final SecurityService service;
     @Override
     public String listerClient(Model model,
                                @RequestParam(name = "page",defaultValue = "0") int page,
@@ -74,8 +78,11 @@ public class ClientControllerImpl  implements ClientController {
         }else{
             redirectAttributes.addFlashAttribute("mode","succes");
             redirectAttributes.addFlashAttribute("message","Client Enregistre avec Success");
-            Client client=clientDtoForm.toEntity();
-             clientRepository.save(client);
+             Client client=clientDtoForm.toEntity();
+            client.setUsername(clientDtoForm.getTelephone());
+            client.setPassword(passwordEncoder.encode("passer"));
+            clientRepository.save(client);
+            service.addRoleToUser(clientDtoForm.getTelephone(),"Client");
              return "redirect:/liste-clients";
         }
 
