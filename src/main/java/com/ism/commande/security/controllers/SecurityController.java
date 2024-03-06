@@ -1,5 +1,6 @@
 package com.ism.commande.security.controllers;
 
+import com.ism.commande.exceptions.EntityNotFoundException;
 import com.ism.commande.security.entity.AppUser;
 import com.ism.commande.security.services.SecurityService;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,13 @@ public class SecurityController {
     private final SecurityService service;
     @GetMapping("/")
     public String index(){
-        return "redirect:/login";
+         throw  new EntityNotFoundException("Not found");
+       // return "redirect:/login";
     }
     @GetMapping("/login")
     public String login(@AuthenticationPrincipal UserDetails userDetails)  {
             if (userDetails==null){
-                 return "login";
+                 return "redirect:/login";
             }
 
               if(userDetails.getAuthorities()
